@@ -25,6 +25,32 @@
     <url-pattern>/checkLogin</url-pattern>
   </servlet-mapping>
   
+   <servlet>
+     <servlet-name>register</servlet-name>
+    <servlet-class>dal.register</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>register</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+     <servlet-name>add_todolist</servlet-name>
+    <servlet-class>dal.add_todolist</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>add_todolist</servlet-name>
+    <url-pattern>/add_todolist</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+     <servlet-name>show_todolist</servlet-name>
+    <servlet-class>dal.show_todolist</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>show_todolist</servlet-name>
+    <url-pattern>/show_todolist</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>home.jsp</welcome-file>
   </welcome-file-list>

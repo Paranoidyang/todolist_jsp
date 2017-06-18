@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=yes">
-<title>简易留言板</title>
+<title>扯淡留言板-留言区</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/cover.css">
 <script src="js/jquery-1.11.2.min.js"></script>
@@ -72,6 +72,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		})
 	}
 </script>
+<script>
+	function get_time() {
+		var date = new Date();
+		var year = "", month = "", day = "", week = "", hour = "", minute = "", second = "";
+		year = date.getFullYear();
+		month = add_zero(date.getMonth() + 1);
+		day = add_zero(date.getDate());
+		week = date.getDay();
+		switch (date.getDay()) {
+		case 0:
+			val = "周日";
+			break
+		case 1:
+			val = "周一";
+			break
+		case 2:
+			val = "周二";
+			break
+		case 3:
+			val = "周三";
+			break
+		case 4:
+			val = "周四";
+			break
+		case 5:
+			val = "周五";
+			break
+		case 6:
+			val = "周六";
+			break
+		}
+		hour = add_zero(date.getHours());
+		minute = add_zero(date.getMinutes());
+		second = add_zero(date.getSeconds());
+		document.getElementById("timetable").innerHTML = " " + year + "-"
+				+ month + "-" + day + " " + hour + ":" + minute + ":" + second
+				+ " " + val;
+	}
+	function add_zero(temp) {
+		if (temp < 10)
+			return "0" + temp;
+		else
+			return temp;
+	}
+	setTimeout("get_time()", 0);//代码延迟0ms开始执行，获取某个时刻的时间
+	//setInterval("get_time()",1000);//代码每隔1000ms执行一次，让时间动态的变化，类似时钟
+</script>
 </head>
 <body>
 
@@ -83,23 +130,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				<div class="masthead clearfix">
 					<div class="inner">
-						<h2 class="masthead-brand">留言板主页</h2>
+						<h2 class="masthead-brand">留言区</h2>
 						<ul class="nav masthead-nav">
-							<li class="active"><a href="home.jsp">首页</a></li>
-
-							</li>
-							<%
-								if (user == null) {
-							%>
-							<li><a onclick="alert('请您先登录！')">写留言</a>
-							<li><a href="login.jsp">登录</a></li>
-							<li><a href="register.jsp">注册</a></li>
-
-
-							<%
-								} else {
-							%>
-							<li><a href="write.jsp">写留言</a>
+							<li><a href="home.jsp">首页</a></li>
+							<li class="active"><a href="write.jsp">写留言</a>
 							<li><a href="Logout.jsp" onclick="alert('已成功注销')">注销</a>
 							</li>
 
@@ -108,60 +142,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="image">
 									<img src="image/head.jpg" />
 								</div> <span id="user"><%=user%></span></li>
-
-
-							<%
-								}
-							%>
-
 						</ul>
 					</div>
 				</div>
 				<div class="inner cover">
-					<form rol="form">
+					<form rol="form" action="add_todolist">
 						<div class="form-group">
-							<label for="username">用户名：</label> <input id="username"
-								v-model="username" placeholder="输入用户名" class="form-control"
-								type="text">
+							<label for="todolist">留言</label> <input id="todolist"
+								name="todolist" v-model="todolist" placeholder="输入留言"
+								class="form-control" type="text">
 						</div>
+						
 						<div class="form-group">
-							<label for="todolist">留言</label> <input id="todolist" v-model="todolist"
-								placeholder="输入留言" class="form-control" type="text">
+							<input type="button" value="预览" class="btn btn-primary" v-on:click="add()"/>
+							<input type="submit" value="添加" class="btn btn-primary"/>
+							<input type="reset" value="重置" class="btn btn-danger"/>
 						</div>
-						<div class="form-group">
-							<input type="button" value="添加" class="btn btn-primary"
-								v-on:click="add()"> <input type="reset" value="重置"
-								class="btn btn-danger">
-						</div>
+						
+						<hr>
+						<table class="table table-bordered table-hover">
+							<caption class="h3 text-info">留言信息表</caption>
+							<tr class="text-danger">
+								<th class="text-center">序号</th>
+								<th class="text-center">名字</th>
+								<th class="text-center">时间</th>
+								<th class="text-center">留言</th>
+								<th class="text-center">操作</th>
+							</tr>
+							<tr class="text-center" v-for="(item,index) in myData">
+								<td>{{index+1}}</td>
+								<td><input name="user" type="hidden" ><%=user%></input></td>
+								<td><input name="time" type="hidden"><span id="timetable"></span></input></td>
+								<td><input name="todolist" type="hidden">{{item.todolist}}</input></td>
+								<td><input class="btn btn-primary btn-sm"
+									data-toggle="modal" data-target="#layer" type="button"
+									value="删除" v-on:click="nowIndex=$index">
+								</td>
+							</tr>
+							<tr class="text-right" v-show="myData.length != 0">
+								<td colspan="5">
+									<button class="btn btn-danger btn-sm center-block"
+										data-toggle="modal" data-target="#layer"
+										v-on:click="nowIndex='-1'">删除全部</button></td>
+							</tr>
+							<tr v-show="myData.length==0">
+								<td colspan="5" class="text-center text-muted">
+									<p>暂无数据...</p></td>
+							</tr>
+						</table>
+
 					</form>
-					<hr>
-					<table class="table table-bordered table-hover">
-						<caption class="h3 text-info">留言信息表</caption>
-						<tr class="text-danger">
-							<th class="text-center">序号</th>
-							<th class="text-center">名字</th>
-							<th class="text-center">留言</th>
-							<th class="text-center">操作</th>
-						</tr>
-						<tr class="text-center" v-for="(item,index) in myData">
-							<td>{{index+1}}</td>
-							<td>{{item.name}}</td>
-							<td>{{item.todolist}}</td>
-							<td><input class="btn btn-primary btn-sm"
-								data-toggle="modal" data-target="#layer" type="button"
-								value="删除" v-on:click="nowIndex=$index">
-							</td>
-						</tr>
-						<tr class="text-right" v-show="myData.length != 0">
-							<td colspan="4">
-								<button class="btn btn-danger btn-sm" data-toggle="modal"
-									data-target="#layer" v-on:click="nowIndex='-1'">删除全部</button></td>
-						</tr>
-						<tr v-show="myData.length==0">
-							<td colspan="4" class="text-center text-muted">
-								<p>暂无数据...</p></td>
-						</tr>
-					</table>
 
 					<!-- 模态框 弹出框 -->
 					<div role="dialog" class="modal fade" id="layer">

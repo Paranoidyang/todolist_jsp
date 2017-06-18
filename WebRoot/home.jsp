@@ -75,7 +75,7 @@
 					<h1 class="cover-heading">欢迎来到留言板主页</h1>
 					<p class="lead">有朋自远方来，不亦乐乎！</p>
 					<p class="lead">
-						<a href="showmain.jsp" class="btn btn-lg btn-default">查看已有留言</a>
+						<a href="show_todolist.jsp" class="btn btn-lg btn-default">查看已有留言</a>
 					</p>
 				</div>
 

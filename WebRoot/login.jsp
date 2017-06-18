@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span><a href="#">找回密码</a></span>
 					</div>
 					<div class="col-md-4">
-						<span><a href="register.html" class="pull-right">还没账号？注册</a></span>
+						<span><a href="register.jsp" class="pull-right">还没账号？注册</a></span>
 					</div>
 				</div>
 			</div>
