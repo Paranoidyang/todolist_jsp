@@ -71,6 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 </script>
 <script>
+//这个没用到
 	function get_time() {
 		var date = new Date();
 		var year = "", month = "", day = "", week = "", hour = "", minute = "", second = "";
@@ -117,6 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	setTimeout("get_time()", 0);//代码延迟0ms开始执行，获取某个时刻的时间
 	//setInterval("get_time()",1000);//代码每隔1000ms执行一次，让时间动态的变化，类似时钟
 </script>
+
 </head>
 <body>
 
@@ -145,16 +147,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="inner cover">
 					<form rol="form" action="add_todolist">
-						<div class="form-group">
+						<div class="form-group" name="for_group">
 							<label for="todolist">留言</label> <input id="todolist"
 								name="todolist" v-model="todolist" placeholder="输入留言"
 								class="form-control" type="text">
 						</div>
 						
 						<div class="form-group">
-							<input type="button" value="预览" class="btn btn-primary" v-on:click="add()"/>
-							<!--为什么下面添加了add方法却无法在下面显示出来-->
-							<input type="submit" value="添加" class="btn btn-primary" v-on:click="add()" onclick="alert('添加成功！可到首页查看已有留言')"/>
+							<input type="button" value="预览" class="btn btn-primary" v-on:click="add()" />
+							<input type="submit" value="添加" class="btn btn-primary" v-on:click="add()" onclick="alert('添加成功！可以到首页查看已有留言')"/>
 							<input type="reset" value="重置" class="btn btn-danger"/>
 						</div>
 						
@@ -192,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					</form>
 
-					<!-- 模态框 弹出框 -->
+					<!--删除 模态框 弹出框 -->
 					<div role="dialog" class="modal fade" id="layer">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -210,6 +211,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</div>
 					</div>
+				
 				</div>
 				<div class="mastfoot">
 					<div class="inner">
