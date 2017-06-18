@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 
+import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -82,6 +83,8 @@ public class checkLogin extends HttpServlet {
             System.out.println("验证码错误");
             response.sendRedirect("login.jsp");
         }
+        //保存用户名至session
+        request.getSession().setAttribute("admin",txtUsername);
 
         // 判断是否勾选十天免登录
         boolean isRememberUser = (request.getParameter("isUseCookie") != null);

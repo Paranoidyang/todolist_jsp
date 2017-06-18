@@ -12,15 +12,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         Cookie[] arrCookie = request.getCookies();
         if (arrCookie != null) {
             for (Cookie ck : arrCookie) {
-                if (ck.getName().equals("UserName")) {
+                if (ck.getName().equals("txtUserName")) {
                     username = URLDecoder.decode(ck.getValue(), "utf-8");
                 }
-                if (ck.getName().equals("PassWord")) {
+                if (ck.getName().equals("txtPassword")) {
                     password = URLDecoder.decode(ck.getValue(), "utf-8");
                     break;
                 }
             }
         }
+        
+    
     %>
 <!DOCTYPE html>
 <html>
@@ -56,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="text-center text-primary">环球书城欢迎您!</h1>
+					<h1 class="text-center text-primary">扯淡留言板欢迎您!</h1>
 				</div>
 				<div class="modal-body">
 					<div class="row">
