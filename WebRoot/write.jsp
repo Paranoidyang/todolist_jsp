@@ -153,7 +153,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<div class="form-group">
 							<input type="button" value="预览" class="btn btn-primary" v-on:click="add()"/>
-							<input type="submit" value="添加" class="btn btn-primary" onclick="alert('添加成功！可到首页查看已有留言')"/>
+							<!--为什么下面添加了add方法却无法在下面显示出来-->
+							<input type="submit" value="添加" class="btn btn-primary" v-on:click="add()" onclick="alert('添加成功！可到首页查看已有留言')"/>
 							<input type="reset" value="重置" class="btn btn-danger"/>
 						</div>
 						
@@ -170,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<tr class="text-center" v-for="(item,index) in myData">
 								<td>{{index+1}}</td>
 								<td><input name="user" type="hidden" value=<%=user%>><%=user%></input></td>
-								<td><input name="time" type="hidden"><%=new Date()%></input></td>
+								<td><input name="time" type="hidden" value="<%=new Date()%>"><%=new Date()%></input></td>
 								<td><input name="todolist" type="hidden">{{item.todolist}}</input></td>
 								<td><input class="btn btn-primary btn-sm"
 									data-toggle="modal" data-target="#layer" type="button"
