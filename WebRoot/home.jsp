@@ -35,9 +35,7 @@
 						<h2 class="masthead-brand">留言板主页</h2>
 						<ul class="nav masthead-nav">
 							<li class="active"><a href="home.jsp">首页</a>
-							</li>
 							
-							</li>
 							<%
 								if (user == null) {
 							%>

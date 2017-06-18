@@ -38,6 +38,9 @@ public class add_todolist extends HttpServlet {
         user = request.getParameter("user");
         time = request.getParameter("time");
         todolist = request.getParameter("todolist");
+        System.out.println(user);
+        System.out.println(time);
+        System.out.println(todolist);
 
             try {
             	 createConnect connect = new createConnect();

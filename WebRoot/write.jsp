@@ -9,8 +9,8 @@
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
-	request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
+	request.setCharacterEncoding("gbk");
+	response.setContentType("text/html;charset=gbk");
         String username = "";
         String password = "";
         Cookie[] arrCookie = request.getCookies();
@@ -44,7 +44,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		new Vue({
 			el : ".cover",
 			data : {
-				username : '',
 				todolist : '',
 				nowIndex : -100,
 				myData : [
@@ -54,12 +53,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			methods : {
 				add : function() {
 					this.myData.push({
-						name : this.username,
 						todolist : this.todolist
 					});
 
-					this.username = '';
-					this.todolist = '';
+					//this.username = '';
+					//this.todolist = '';
 				},
 				deleteMsg : function(n) {
 					if (n == -1) {
@@ -155,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<div class="form-group">
 							<input type="button" value="预览" class="btn btn-primary" v-on:click="add()"/>
-							<input type="submit" value="添加" class="btn btn-primary"/>
+							<input type="submit" value="添加" class="btn btn-primary" onclick="alert('添加成功！可到首页查看已有留言')"/>
 							<input type="reset" value="重置" class="btn btn-danger"/>
 						</div>
 						
@@ -171,8 +169,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</tr>
 							<tr class="text-center" v-for="(item,index) in myData">
 								<td>{{index+1}}</td>
-								<td><input name="user" type="hidden" ><%=user%></input></td>
-								<td><input name="time" type="hidden"><span id="timetable"></span></input></td>
+								<td><input name="user" type="hidden" value=<%=user%>><%=user%></input></td>
+								<td><input name="time" type="hidden"><%=new Date()%></input></td>
 								<td><input name="todolist" type="hidden">{{item.todolist}}</input></td>
 								<td><input class="btn btn-primary btn-sm"
 									data-toggle="modal" data-target="#layer" type="button"

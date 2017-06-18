@@ -11,8 +11,8 @@
 			+ path + "/";
 %>
 <%
-	request.setCharacterEncoding("utf-8");
-	response.setContentType("text/html;charset=utf-8");
+	request.setCharacterEncoding("gbk");
+	response.setContentType("text/html;charset=gbk");
 	String username = "";
 	String password = "";
 	Cookie[] arrCookie = request.getCookies();
@@ -55,15 +55,35 @@
 						<h2 class="masthead-brand">留言区</h2>
 						<ul class="nav masthead-nav">
 							<li><a href="home.jsp">首页</a></li>
-							<li class="active"><a href="write.jsp">写留言</a>
-							<li><a href="Logout.jsp" onclick="alert('已成功注销')">注销</a>
+							<%
+								if (user == null) {
+							%>
+							<li><a onclick="alert('请您先登录！')">写留言</a>
+							<li><a href="login.jsp">登录</a>
 							</li>
+							<li><a href="register.jsp">注册</a>
+							</li>
+
+
+							<%
+								} else {
+							%>
+							<li><a href="write.jsp">写留言</a>
+							<li><a href="Logout.jsp" onclick="alert('已成功注销')">注销</a></li>
 
 							<li>
 
 								<div class="image">
 									<img src="image/head.jpg" />
-								</div> <span id="user"><%=user%></span></li>
+								</div>
+								<span id="user"><%=user%></span>
+							</li>
+
+
+							<%
+								}
+							%>
+
 						</ul>
 					</div>
 				</div>
